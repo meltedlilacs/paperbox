@@ -7,7 +7,8 @@ Window = React.createClass({
       boxFront: params.imageBoxFront,
       boxBack: params.imageBoxBack,
       boxSide: params.imageBoxSide,
-      boxTop: params.imageBoxTop
+      boxTop: params.imageBoxTop,
+      boxBottom: params.imageBoxBottom
     };
     return makeBox(params.paper,
       params.height, params.width, params.depth,
@@ -65,7 +66,8 @@ Configurator = React.createClass({
       imageBoxFront: this.state.imageBoxFront,
       imageBoxBack: this.state.imageBoxBack,
       imageBoxSide: this.state.imageBoxSide,
-      imageBoxTop: this.state.imageBoxTop
+      imageBoxTop: this.state.imageBoxTop,
+      imageBoxBottom: this.state.imageBoxBottom
     };
     var hasInvalid = false;
     props.forEach(function(prop) {
@@ -197,6 +199,20 @@ Configurator = React.createClass({
       this.changeState('imageBoxTop', null);
     }
   },
+  imageBoxBottomChange: function(e) {
+    if (e.target.files) {
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      var _this = this;
+      reader.onload = function(e) {
+        var datauri = e.target.result;
+        _this.changeState('imageBoxBottom', datauri);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.changeState('imageBoxBottom', null);
+    }
+  },
   render: function() {
     return (
       <form className="configurator form-horizontal" onSubmit={this.handleSubmit}>
@@ -320,6 +336,15 @@ Configurator = React.createClass({
             <input
               className="form-control" type="file" ref="imageBoxTop"
               onChange={this.imageBoxTopChange}
+            />
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="control-label col-xs-4">Box Bottom</label>
+          <div className="col-xs-8">
+            <input
+              className="form-control" type="file" ref="imageBoxBottom"
+              onChange={this.imageBoxBottomChange}
             />
           </div>
         </div>

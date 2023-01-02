@@ -301,6 +301,7 @@ function drawBox(_drawer, _width, _length, _height, _fill, _title, _imgs) {
   var backImage = _imgs.boxBack;
   var sideImage = _imgs.boxSide;
   var topImage = _imgs.boxTop;
+  var bottomImage = _imgs.boxBottom;
   var totalLength = size.main.x * 2 + size.side_panel.x * 2 + size.side_flap.x;
   var currCenterX = size.main.x * 1.5 + size.side_panel.x;
   var totalHeight = size.main.y + size.bt_flap.y * 2 + size.top_top_flap.y;
@@ -428,7 +429,10 @@ function drawBox(_drawer, _width, _length, _height, _fill, _title, _imgs) {
   
   if (topImage) {	  
 	imagePanel(topImage, flaps.top_top.loc, flaps.top_top.size, 0);
-	imagePanel(topImage, flaps.top_bot.loc, flaps.top_bot.size, 0);
+  }
+
+  if (bottomImage) {    
+  imagePanel(bottomImage, flaps.top_bot.loc, flaps.top_bot.size, 0);
   }
 	_.values(panels).forEach(drawPanel);
 	_.values(flaps).forEach(drawFlap);
